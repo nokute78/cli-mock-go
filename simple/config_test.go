@@ -2,7 +2,6 @@
    Copyright 2020 Takahiro Yamashita
 
    Licensed under the Apache License, Version 2.0 (the "License");
-
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
@@ -37,7 +36,7 @@ func TestConfigure(t *testing.T) {
 	}
 
 	for _, v := range cases {
-		_, err := Configure(v.input)
+		_, err := Configure(v.input, true)
 		if err != v.expect {
 			t.Errorf("%s:given %s expect %s", v.name, err, v.expect)
 		}

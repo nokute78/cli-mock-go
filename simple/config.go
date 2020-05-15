@@ -2,7 +2,6 @@
    Copyright 2020 Takahiro Yamashita
 
    Licensed under the Apache License, Version 2.0 (the "License");
-
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
@@ -20,6 +19,7 @@ package main
 import (
 	"errors"
 	"flag"
+	"io/ioutil"
 )
 
 // ConfigArgsMissing represents no Args error
@@ -30,7 +30,8 @@ type Config struct {
 }
 
 // Pass os.Args[1:]
-func Configure(args []string) (*Config, error) {
+// silent is to suppress help message for testing.
+func Configure(args []string, silent bool) (*Config, error) {
 	ret := &Config{}
 	if len(args) < 1 {
 		return nil, ConfigNoArgs
@@ -38,6 +39,10 @@ func Configure(args []string) (*Config, error) {
 
 	opt := flag.NewFlagSet("simple", flag.ContinueOnError)
 	opt.BoolVar(&ret.showVersion, "V", false, "show Version")
+
+	if silent {
+		opt.SetOutput(ioutil.Discard)
+	}
 
 	err := opt.Parse(args)
 

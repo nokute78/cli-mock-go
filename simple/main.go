@@ -41,7 +41,7 @@ type CLI struct {
 
 // Run executes real main function.
 func (cli *CLI) Run(args []string) (ret int) {
-	cnf, err := Configure(args[1:])
+	cnf, err := Configure(args[1:], false)
 	if err != nil {
 		if err == flag.ErrHelp {
 			return ExitOK
