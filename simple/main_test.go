@@ -41,7 +41,7 @@ func TestCliRun(t *testing.T) {
 		args := []string{"program-name"}
 		args = append(args, v.input...)
 
-		cli := &CLI{OutStream: nullbuf, ErrStream: nullbuf}
+		cli := &CLI{OutStream: nullbuf, ErrStream: nullbuf, quiet: true}
 		ret := cli.Run(args)
 		if ret != v.expect {
 			t.Errorf("%s:given %d expect %d", v.name, ret, v.expect)
@@ -52,7 +52,7 @@ func TestCliRun(t *testing.T) {
 func TestShowVersion(t *testing.T) {
 	buf := bytes.NewBuffer([]byte{})
 
-	cli := &CLI{OutStream: buf}
+	cli := &CLI{OutStream: buf, quiet: true}
 
 	ret := cli.Run([]string{"showVer", "-V"})
 	if ret != ExitOK {

@@ -37,11 +37,12 @@ type CLI struct {
 	OutStream io.Writer
 	InStream  io.Reader
 	ErrStream io.Writer
+	quiet     bool // for testing to suppress output
 }
 
 // Run executes real main function.
 func (cli *CLI) Run(args []string) (ret int) {
-	cnf, err := Configure(args[1:], false)
+	cnf, err := Configure(args[1:], cli.quiet)
 	if err != nil {
 		if err == flag.ErrHelp {
 			return ExitOK
