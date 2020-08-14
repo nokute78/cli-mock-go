@@ -25,6 +25,8 @@ import (
 // ConfigArgsMissing represents no Args error
 var ConfigNoArgs error = errors.New("No Args")
 
+const programName = "simple"
+
 type Config struct {
 	showVersion bool
 }
@@ -37,7 +39,7 @@ func Configure(args []string, silent bool) (*Config, error) {
 		return nil, ConfigNoArgs
 	}
 
-	opt := flag.NewFlagSet("simple", flag.ContinueOnError)
+	opt := flag.NewFlagSet(programName, flag.ContinueOnError)
 	opt.BoolVar(&ret.showVersion, "V", false, "show Version")
 
 	if silent {
